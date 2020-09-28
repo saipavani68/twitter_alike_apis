@@ -1,0 +1,1 @@
+DATABASE = 'users.db'
