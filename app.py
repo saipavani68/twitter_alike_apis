@@ -41,7 +41,7 @@ def query_db(query, args=(), one=False):
 def init_db():
     with app.app_context():
         db = get_db()
-        with app.open_resource('users.sql', mode='r') as f:
+        with app.open_resource('schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
         
@@ -61,7 +61,7 @@ def createUser():
     
     db= get_db()
 
-    createNewUser = db.execute('INSERT INTO users (username, email, password) VALUES(?,?,?)',(username, email, hashed_password))
+    db.execute('INSERT INTO users (username, email, password) VALUES(?,?,?)',(username, email, hashed_password))
     res = db.commit()
     
     getusers = query_db('SELECT * FROM users')
@@ -84,4 +84,19 @@ def authenticateUser():
     return jsonify(check_password_hash(hashed_password, password)) #checking if user entered password is equal to the hashed password in db
     
     
+# Allowing user to follow another user
+
+@app.route('/follow', methods=['POST'])
+def addFollower():
+    query_parameters = request.form
     
+    username = query_parameters.get('username')
+    usernameToFollow = query_parameters.get('usernameToFollow')
+    
+    db= get_db()
+    db.execute('INSERT INTO user_following (username, usernameToFollow) VALUES(?,?)',(username, usernameToFollow))
+    res = db.commit()
+    
+    message = "200 Ok"
+    
+    return jsonify(message)
