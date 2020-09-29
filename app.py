@@ -98,5 +98,18 @@ def addFollower():
     res = db.commit()
     
     message = "200 Ok"
+    return jsonify(message)
+
+@app.route('/unfollow', methods=['POST'])
+def removeFollower():
+    query_parameters = request.form
+       
+    username = query_parameters.get('username')
+    usernameToRemove = query_parameters.get('usernameToRemove')
     
+    db= get_db()
+    db.execute('DELETE FROM user_following WHERE username=? AND usernameToFollow=?',(username, usernameToRemove))
+    res = db.commit()
+    
+    message = "200 Ok"
     return jsonify(message)
