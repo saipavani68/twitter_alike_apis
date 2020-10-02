@@ -6,8 +6,6 @@ DROP TABLE IF EXISTS user_following;
 DROP TABLE IF EXISTS Tweets;
 DROP TABLE IF EXISTS users;
 
-
-
 CREATE TABLE users (
     username VARCHAR primary key,
     email VARCHAR,
@@ -25,6 +23,5 @@ CREATE TABLE Tweets(
 	text VARCHAR,
 	FOREIGN KEY(username) REFERENCES users(username)
 );
-
 
 COMMIT;

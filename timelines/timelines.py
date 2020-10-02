@@ -10,6 +10,7 @@ def make_dicts(cursor, row):
     return dict((cursor.description[idx][0], value)
                 for idx, value in enumerate(row))
 
+
 @app.cli.command('init')
 def init_db():
     with app.app_context():
@@ -24,12 +25,14 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(app.config['DATABASE'])
         db.row_factory = make_dicts
     return db
+
 
 @app.route('/getUserTimeline',methods=['GET'])
 def getUserTimeline():
@@ -41,7 +44,6 @@ def getUserTimeline():
     getUserTimeline=query_db('SELECT * FROM Tweets WHERE username=?',[username])
 
     return jsonify(getUserTimeline)
-
 
 
 @app.route('/postTweet', methods=['POST'])
