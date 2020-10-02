@@ -2,8 +2,11 @@
 
 PRAGMA foreign_keys=ON;
 BEGIN TRANSACTION;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_following;
+DROP TABLE IF EXISTS Tweets;
+DROP TABLE IF EXISTS users;
+
+
 
 CREATE TABLE users (
     username VARCHAR primary key,
@@ -17,5 +20,11 @@ CREATE TABLE user_following (
     FOREIGN KEY(username) REFERENCES users(username)
 );
 
-INSERT INTO users(username, email, password) VALUES('Julie', 'Julie@gmail.com', 'sahdh@934@');
+CREATE TABLE Tweets(
+	username VARCHAR primary key,
+	text VARCHAR,
+	FOREIGN KEY(username) REFERENCES users(username)
+);
+
+
 COMMIT;
