@@ -82,7 +82,12 @@ def authenticateUser():
     result = query_db('SELECT password FROM users WHERE username = ?', [username])
     
     hashed_password = result[0].get('password')
-    return jsonify(check_password_hash(hashed_password, password)) #checking if user entered password is equal to the hashed password in db
+    validate_user = check_password_hash(hashed_password, password)    #checking if user entered password is equal to the hashed password in db
+    if validate_user:
+        return jsonify(validate_user)
+    else:
+        return jsonify({"statusCode": 401, "error": "Unauthorized", "message": "Login failed: Invalid username or password" })
+  
     
     
 # Allowing user to follow another user
