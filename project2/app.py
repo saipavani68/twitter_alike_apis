@@ -62,7 +62,7 @@ def createUser():
     count = query_db('SELECT COUNT(*) as count FROM users WHERE username = ?', [username])
     if(count[0].get('count') > 0):                             #returns 400 error if username already exists
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Username already taken"})
-    elif username=='' or password=='' or email=='':            #returns 400 error if either username or password or email are not provided.
+    elif username== None or username=='' or password== None or password=='' or email==None or email=='':         #returns 400 error if either username or password or email are not provided.
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)"})
     else:                                                      #new user successful registration
         db.execute('INSERT INTO users (username, email, password) VALUES(?,?,?)',(username, email, hashed_password))
@@ -106,7 +106,7 @@ def addFollower():
     res = db.commit()
     
     #Returns 400 error when username or usernameToFollow are not provided.
-    if username == '' or usernameToFollow == '':
+    if username == '' or username == None or usernameToFollow == None or usernameToFollow == '':
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)" })
     else:
         return jsonify({"statusCode":200})
@@ -126,7 +126,7 @@ def removeFollower():
     res = db.commit()
     
     #Returns 400 error when username or usernameToFollow are not provided.
-    if username == '' or usernameToRemove == '':
+    if username == '' or usernameToRemove == '' or username == None or usernameToRemove == None:
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)" })
     else:
         return jsonify({"statusCode":200})
