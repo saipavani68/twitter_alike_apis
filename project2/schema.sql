@@ -19,8 +19,9 @@ CREATE TABLE user_following (
 );
 
 CREATE TABLE Tweets(
-	username VARCHAR primary key,
+	username VARCHAR,
 	text VARCHAR,
+    timestamp DATETIME,
 	FOREIGN KEY(username) REFERENCES users(username)
 );
 

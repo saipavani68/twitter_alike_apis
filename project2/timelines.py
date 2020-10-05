@@ -51,7 +51,13 @@ def postTweet():
     text = query_parameters.get('text')
 
     db= get_db()
-    db.execute('INSERT INTO Tweets (username, text) VALUES(?,?)',(username, text))
-    res = db.commit()
-    getTweets = query_db('SELECT * FROM Tweets')
-    return jsonify(getTweets)
+    result = query_db('SELECT COUNT(*) as count FROM users WHERE username = ?', [username])
+    
+    #Only an existing user can post a tweet
+    if result[0].get('count') > 0:
+        db.execute('INSERT INTO Tweets (username, text) VALUES(?,?)',(username, text))
+        res = db.commit()
+        getTweets = query_db('SELECT * FROM Tweets')
+        return jsonify(getTweets)
+    else:
+        return jsonify({"message": "Username doesn't exist. If you are a new user please register, or if you are an existing user please sign in"})
