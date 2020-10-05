@@ -60,9 +60,11 @@ def createUser():
     
     db= get_db()
     count = query_db('SELECT COUNT(*) as count FROM users WHERE username = ?', [username])
-    if(count[0].get('count') > 0): #returns 400 error if username already exists
+    if(count[0].get('count') > 0):                             #returns 400 error if username already exists
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Username already taken"})
-    else: #new user successful registration
+    elif username=='' or password=='' or email=='':            #returns 400 error if either username or password or email are not provided.
+        return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)"})
+    else:                                                      #new user successful registration
         db.execute('INSERT INTO users (username, email, password) VALUES(?,?,?)',(username, email, hashed_password))
         res = db.commit()
         getusers = query_db('SELECT * FROM users')
@@ -87,9 +89,9 @@ def authenticateUser():
         return jsonify(validate_user)
     else:
         return jsonify({"statusCode": 401, "error": "Unauthorized", "message": "Login failed: Invalid username or password" })
-  
-    
-    
+
+
+
 # Allowing user to follow another user
 
 @app.route('/follow', methods=['POST'])
@@ -103,8 +105,14 @@ def addFollower():
     db.execute('INSERT INTO user_following (username, usernameToFollow) VALUES(?,?)',(username, usernameToFollow))
     res = db.commit()
     
-    message = "200 Ok"
-    return jsonify(message)
+    #Returns 400 error when username or usernameToFollow are not provided.
+    if username == '' or usernameToFollow == '':
+        return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)" })
+    else:
+        return jsonify({"statusCode":200})
+    
+
+#Allowing user to unfollow another user
 
 @app.route('/unfollow', methods=['POST'])
 def removeFollower():
@@ -117,5 +125,8 @@ def removeFollower():
     db.execute('DELETE FROM user_following WHERE username=? AND usernameToFollow=?',(username, usernameToRemove))
     res = db.commit()
     
-    message = "200 Ok"
-    return jsonify(message)
+    #Returns 400 error when username or usernameToFollow are not provided.
+    if username == '' or usernameToRemove == '':
+        return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)" })
+    else:
+        return jsonify({"statusCode":200})
