@@ -1,5 +1,6 @@
 import flask
 from flask import Flask,url_for,jsonify,g,request
+from datetime import datetime
 import sqlite3
 
 app=Flask('timelines')
@@ -49,13 +50,14 @@ def postTweet():
     query_parameters=request.form
     username = query_parameters.get('username')
     text = query_parameters.get('text')
+    timestamp = datetime.utcnow()
 
     db= get_db()
     result = query_db('SELECT COUNT(*) as count FROM users WHERE username = ?', [username])
     
     #Only an existing user can post a tweet
     if result[0].get('count') > 0:
-        db.execute('INSERT INTO Tweets (username, text) VALUES(?,?)',(username, text))
+        db.execute('INSERT INTO Tweets (username, text, timestamp) VALUES(?,?,?)',(username, text, timestamp))
         res = db.commit()
         getTweets = query_db('SELECT * FROM Tweets')
         return jsonify(getTweets)
