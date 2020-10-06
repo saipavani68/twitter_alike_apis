@@ -3,7 +3,7 @@
 1. Sai Pavani Nagisetti (CWID: 888160793, Email: nagisettipavani@csu.fullerton.edu)
 2. Rushabh Shah 
 
-# Project 2: 
+# Project description: 
 
 This project involves creating two microservices: Users & Timelines for a microblogging service. It consists of two Flask applications connected to a  single SQLite Version 3 database.
 
