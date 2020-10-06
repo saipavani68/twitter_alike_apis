@@ -109,7 +109,7 @@ def addFollower():
     if username == '' or username == None or usernameToFollow == None or usernameToFollow == '':
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)" })
     else:
-        return jsonify({"statusCode":200})
+        return jsonify({"statusCode":200, "message": "You are successfully following {}!".format(usernameToFollow)})
     
 
 #Allowing user to unfollow another user

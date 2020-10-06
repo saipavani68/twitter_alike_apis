@@ -13,7 +13,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE user_following (
-    username VARCHAR primary key,
+    username VARCHAR,
     usernameToFollow VARCHAR,
     FOREIGN KEY(username) REFERENCES users(username)
     FOREIGN KEY(usernameToFollow) REFERENCES users(username)
