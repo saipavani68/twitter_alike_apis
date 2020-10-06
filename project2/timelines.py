@@ -56,6 +56,7 @@ def getPublicTimeline():
 
     return jsonify(getPublicTimeline)
 
+#Returns recent(limited to 25) tweets from all users that this user follows.
 
 @app.route('/getHomeTimeline',methods=['GET'])
 def getHomeTimeline():
@@ -63,8 +64,7 @@ def getHomeTimeline():
     query_parameters=request.args
     username=query_parameters.get('username')
     
-    #Retrieve the 25 most recent tweets from all users
-    getHomeTimeline=query_db('SELECT * from Tweets WHERE username IN (SELECT usernameToFollow FROM user_following WHERE username=?)',[username])
+    getHomeTimeline=query_db('SELECT * from Tweets WHERE username IN (SELECT usernameToFollow FROM user_following WHERE username=?) ORDER BY timestamp DESC LIMIT 25',[username])
 
     return jsonify(getHomeTimeline)
 
