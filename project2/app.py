@@ -67,8 +67,7 @@ def createUser():
     else:                                                      #new user successful registration
         db.execute('INSERT INTO users (username, email, password) VALUES(?,?,?)',(username, email, hashed_password))
         res = db.commit()
-        getusers = query_db('SELECT * FROM users')
-        return jsonify(getusers)
+        return jsonify({"statusCode": 200, "message": "You have successfully registered!"})
 
 
 #Authenticating user
