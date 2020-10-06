@@ -95,6 +95,6 @@ def postTweet():
         db.execute('INSERT INTO Tweets (username, text, timestamp) VALUES(?,?, ?)',(username, text, timestamp))
         res = db.commit()
         getTweets = query_db('SELECT * FROM Tweets')
-        return jsonify(getTweets)
+        return jsonify({"statusCode": 200})
     else:
         return jsonify({"message": "Username doesn't exist. If you are a new user please register, or if you are an existing user please sign in"})
