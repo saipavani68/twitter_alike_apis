@@ -18,7 +18,7 @@ The following are the steps to run the project:
    
 4. Run the following commands to install Foreman and HTTPie:
     sudo apt update
-    sudo apt install --yes ruby-foreman httpie (However, we tested the apis using Postman)
+    sudo apt install --yes ruby-foreman httpie
 
 5. Then cd into the project2 folder
     Run the following commands:
