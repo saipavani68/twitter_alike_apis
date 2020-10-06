@@ -129,4 +129,4 @@ def removeFollower():
     if username == '' or usernameToRemove == '' or username == None or usernameToRemove == None:
         return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter(s)" })
     else:
-        return jsonify({"statusCode":200})
+        return jsonify({"statusCode":200, "message": "You have successfully unfollowed {}!".format(usernameToRemove)})
