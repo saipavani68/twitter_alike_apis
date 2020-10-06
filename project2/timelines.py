@@ -34,15 +34,39 @@ def get_db():
     return db
 
 
+#Retrieve the 25 most recent tweets of the user
+
 @app.route('/getUserTimeline',methods=['GET'])
 def getUserTimeline():
     query_parameters=request.args
     username=query_parameters.get('username')
 
     db=get_db()
-    getUserTimeline=query_db('SELECT * FROM Tweets WHERE username=?',[username])
+    getUserTimeline=query_db('SELECT * FROM Tweets WHERE username=? ORDER BY timestamp DESC LIMIT 25',[username])
 
     return jsonify(getUserTimeline)
+
+
+#Retrieve the 25 most recent tweets from all users
+ 
+@app.route('/getPublicTimeline',methods=['GET'])
+def getPublicTimeline():
+    db=get_db()
+    getPublicTimeline=query_db('SELECT * FROM Tweets ORDER BY timestamp DESC LIMIT 25')
+
+    return jsonify(getPublicTimeline)
+
+
+@app.route('/getHomeTimeline',methods=['GET'])
+def getHomeTimeline():
+    db=get_db()
+    query_parameters=request.args
+    username=query_parameters.get('username')
+    
+    #Retrieve the 25 most recent tweets from all users
+    getHomeTimeline=query_db('SELECT * from Tweets WHERE username IN (SELECT usernameToFollow FROM user_following WHERE username=?)',[username])
+
+    return jsonify(getHomeTimeline)
 
 
 @app.route('/postTweet', methods=['POST'])
@@ -57,7 +81,7 @@ def postTweet():
     
     #Only an existing user can post a tweet
     if result[0].get('count') > 0:
-        db.execute('INSERT INTO Tweets (username, text, timestamp) VALUES(?,?,?)',(username, text, timestamp))
+        db.execute('INSERT INTO Tweets (username, text, timestamp) VALUES(?,?, ?)',(username, text, timestamp))
         res = db.commit()
         getTweets = query_db('SELECT * FROM Tweets')
         return jsonify(getTweets)

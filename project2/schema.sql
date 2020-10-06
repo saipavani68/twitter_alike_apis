@@ -16,6 +16,7 @@ CREATE TABLE user_following (
     username VARCHAR primary key,
     usernameToFollow VARCHAR,
     FOREIGN KEY(username) REFERENCES users(username)
+    FOREIGN KEY(usernameToFollow) REFERENCES users(username)
 );
 
 CREATE TABLE Tweets(
