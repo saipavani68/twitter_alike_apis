@@ -42,9 +42,13 @@ def getUserTimeline():
     username=query_parameters.get('username')
 
     db=get_db()
-    getUserTimeline=query_db('SELECT * FROM Tweets WHERE username=? ORDER BY timestamp DESC LIMIT 25',[username])
-
-    return jsonify(getUserTimeline)
+    
+    #Returns 400 error when username is not provided.
+    if username == '' or username == None:
+        return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter" })
+    else:
+        getUserTimeline=query_db('SELECT * FROM Tweets WHERE username=? ORDER BY timestamp DESC LIMIT 25',[username])
+        return jsonify(getUserTimeline)
 
 
 #Retrieve the 25 most recent tweets from all users
@@ -64,9 +68,12 @@ def getHomeTimeline():
     query_parameters=request.args
     username=query_parameters.get('username')
     
-    getHomeTimeline=query_db('SELECT * from Tweets WHERE username IN (SELECT usernameToFollow FROM user_following WHERE username=?) ORDER BY timestamp DESC LIMIT 25',[username])
-
-    return jsonify(getHomeTimeline)
+    #Returns 400 error when username is not provided.
+    if username == '' or username == None:
+        return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter" })
+    else:
+        getHomeTimeline=query_db('SELECT * from Tweets WHERE username IN (SELECT usernameToFollow FROM user_following WHERE username=?) ORDER BY timestamp DESC LIMIT 25',[username])
+        return jsonify(getHomeTimeline)
 
 
 @app.route('/postTweet', methods=['POST'])
@@ -79,8 +86,12 @@ def postTweet():
     db= get_db()
     result = query_db('SELECT COUNT(*) as count FROM users WHERE username = ?', [username])
     
+    #Returns 400 error when username or text is not provided.
+    if username == '' or username == None or text == '' or text== None:
+        return jsonify({"statusCode": 400, "error": "Bad Request", "message": "Invalid parameter" })
+    
     #Only an existing user can post a tweet
-    if result[0].get('count') > 0:
+    elif result[0].get('count') > 0:
         db.execute('INSERT INTO Tweets (username, text, timestamp) VALUES(?,?, ?)',(username, text, timestamp))
         res = db.commit()
         getTweets = query_db('SELECT * FROM Tweets')
