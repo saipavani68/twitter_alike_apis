@@ -1,9 +1,9 @@
 # CPSC 449 Web Back-End Engineering - Fall 2020
-Contributors: 
+# Contributors: 
 1. Sai Pavani Nagisetti (CWID: 888160793, Email: nagisettipavani@csu.fullerton.edu)
 2. Rushabh Shah 
 
-Project 2: This project involves creating two microservices: Users & Timelines for a microblogging service. It consists of two Flask applications connected to a  single SQLite Version 3 database.
+# Project 2: This project involves creating two microservices: Users & Timelines for a microblogging service. It consists of two Flask applications connected to a  single SQLite Version 3 database.
 
 The following are the steps to run the project:
 1. Clone the github repository https://github.com/nagisettipavani/cpsc449
