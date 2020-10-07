@@ -28,6 +28,7 @@ The following are the steps to run the project:
     
 Now, you will be to see that the two flask applications run on two different ports as configured in the Procfile.
 Now the apis can be tested either using Postman(the one we followed) or using HTTPie(https://httpie.org/#examples).
+
    
 
 
