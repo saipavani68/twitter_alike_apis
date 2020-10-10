@@ -16,16 +16,19 @@ The following are the steps to run the project:
     > sudo apt install --yes python3-pip
    
 3. Install Flask by:
-    python3 -m pip install Flask python-dotenv
+    
+    > python3 -m pip install Flask python-dotenv
    
 4. Run the following commands to install Foreman and HTTPie:
-    sudo apt update
-    sudo apt install --yes ruby-foreman httpie(However, we tested using Postman)
+    > sudo apt update
+    
+    > sudo apt install --yes ruby-foreman httpie
 
 5. Then cd into the project2 folder
     Run the following commands:
-    flask init
-    foreman start
+    > flask init
+    
+    > foreman start
     
 Now, you will be to see that the two flask applications run on two different ports as configured in the Procfile.
 Now the apis can be tested either using Postman(the one we followed) or using HTTPie(https://httpie.org/#examples).
