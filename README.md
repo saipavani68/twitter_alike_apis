@@ -12,6 +12,7 @@ The following are the steps to run the project:
 1. Clone the github repository https://github.com/nagisettipavani/cpsc449
 2. Install the pip package manager by running the following commands
     > sudo apt update
+    >
     > sudo apt install --yes python3-pip
    
 3. Install Flask by:
