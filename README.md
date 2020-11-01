@@ -1,8 +1,4 @@
 # CPSC 449 Web Back-End Engineering - Fall 2020
-# Contributors: 
-1. Sai Pavani Nagisetti (CWID: 888160793, Email: nagisettipavani@csu.fullerton.edu)
-2. Rushabh Shah (CWID: 887456218, Email: rushabhshah@csu.fullerton.edu)
-
 
 # Project description: 
 
