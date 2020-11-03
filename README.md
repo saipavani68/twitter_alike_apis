@@ -1,5 +1,7 @@
 # CPSC 449 Web Back-End Engineering - Fall 2020
 
+Guided by @ProfAvery
+
 # Project description: 
 
 This project involves creating two microservices: Users & Timelines for a microblogging service. It consists of two Flask applications connected to a  single SQLite Version 3 database.
