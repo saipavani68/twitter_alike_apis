@@ -1,6 +1,6 @@
 # CPSC 449 Web Back-End Engineering - Fall 2020
 
-Guided by @ProfAvery
+Guided by Professor: Kenytt Avery @ProfAvery
 
 # Project description: 
 
